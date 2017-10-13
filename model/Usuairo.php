@@ -41,6 +41,13 @@ class Usuairo
         return $resposta;
     }
 
+    public function get_usuario_hash($hash)
+    {
+        $stmt = $this->DB->prepare("select u.usu_codigo from usuario u where usu_hash = '{$hash}'");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     private function get_usuario($dados)
     {
         $stmt = $this->DB->prepare("select * from usuario where usu_email = lower('{$dados->usu_email}')");

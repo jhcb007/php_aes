@@ -1,22 +1,11 @@
 <div class="card mb-5">
     <h4 class="card-header">Criptografar Arquivo</h4>
     <div class="card-body">
-        <form>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Nome do Arquivo</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="file" id="file" nv-file-select="" uploader="uploader" class="form-control-file">
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Descrição do Arquivo</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Chave</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-        </form>
-        <input type="file" id="file" nv-file-select="" uploader="uploader" class="form-control-file">
-        <hr>
+        </div>
         <table class="table">
             <thead>
             <tr>
@@ -50,8 +39,37 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <form name="frmArquivo">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="arq_nome">Nome do Arquivo</label>
+                    <input type="text" ng-model="arquivo.arq_nome" required class="form-control" id="arq_nome"
+                           name="arq_nome" placeholder="">
+                    <div ng-show="frmArquivo.arq_nome.$invalid" class="form-control-feedback text-danger">Necessário
+                        informar o nome do arquivo
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="arq_chave">Chave do Arquivo</label>
+                <div class="input-group">
+                    <input type="text" id="arq_chave" name="arq_chave" disabled maxlength="32" required
+                           ng-model="arquivo.arq_chave" class="form-control">
+                    <span class="input-group-btn">
+                    <button class="btn btn-secondary" ng-click="get_nova_chave()" type="button">Gerar Chave</button>
+                  </span>
+                </div>
+                <div ng-show="frmArquivo.arq_chave.$invalid" class="form-control-feedback text-danger">Necessário
+                    informar uma chave
+                </div>
+            </div>
+        </form>
     </div>
     <div class="card-footer">
-        <button type="button" class="btn btn-success pull-right">Salvar Arquivo Criptografado</button>
+        <button type="button" ng-disabled="frmArquivo.$invalid" ng-click="set_arquivo()"
+                class="btn btn-success pull-right">Salvar e Criptografar
+            Arquivo
+        </button>
     </div>
 </div>

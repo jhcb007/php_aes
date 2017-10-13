@@ -21,10 +21,9 @@ $encrypted_file = "teste.txt.aes";
 $decrypted_file = "teste.decrypted.txt";
 
 //Ensure target file does not exist
-@unlink($encrypted_file);
+unlink($encrypted_file);
 //Encrypt a file
 $lib->encryptFile($file_to_encrypt, "1234", $encrypted_file);
-
 //Ensure file does not exist
 @unlink($decrypted_file);
 //Decrypt using same password

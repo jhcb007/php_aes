@@ -7,6 +7,7 @@
     <title>Criptografia AES</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-notification/dist/angular-ui-notification.min.css">
     <link rel="stylesheet" href="../app.css">
 </head>
 <body>
@@ -18,17 +19,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+            <li class="nav-item" ng-class="__pagina === 'Criptografar' ? 'active' : ''">
+                <a class="nav-link" href="#!/inicio">Criptografar</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Meus Arquivos</a>
+            <li class="nav-item" ng-class="__pagina === 'Meus Arquivos' ? 'active' : ''">
+                <a class="nav-link" href="#!/meus_arquivos">Meus Arquivos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Arquivos Recebidos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Configurações</a>
+            <li class="nav-item" ng-class="__pagina === 'Descriptografar' ? 'active' : ''">
+                <a class="nav-link" href="#!/descriptografar">Descriptografar</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Sair</a>
@@ -49,6 +47,7 @@
 <script src="../node_modules/angular-route/angular-route.min.js"></script>
 <script src="../node_modules/angular-resource/angular-resource.min.js"></script>
 <script src="../node_modules/angular-file-upload/dist/angular-file-upload.js"></script>
+<script src="../node_modules/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 <script src="../service/geral.js"></script>
 <script src="../modulo/inicio.js"></script>
 <script src="../app.js"></script>

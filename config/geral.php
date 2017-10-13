@@ -6,7 +6,8 @@
  * Time: 21:55
  */
 
-define('HOST', 'localhost');
-define('USUARIO', 'root');
-define('SENHA', 'root');
+define('HOST', '192.168.254.250');
+define('USUARIO', 'henrique');
+define('SENHA', 'Dtts786-');
 define('BANCO', 'criptografia');
+define('FILES', $_SERVER['DOCUMENT_ROOT'].'/php_aes/arquivos/');

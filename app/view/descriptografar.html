@@ -1,0 +1,59 @@
+<div class="card mb-5">
+    <h4 class="card-header">Descriptografar Arquivo</h4>
+    <div class="card-body">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="file" id="file" nv-file-select="" uploader="uploader" class="form-control-file">
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="50%">Nome</th>
+                <th ng-show="uploader.isHTML5">Tamanho</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in uploader.queue">
+                <td><strong>{{ item.file.name }}</strong></td>
+                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                <td nowrap>
+                    <button type="button" class="btn btn-primary" ng-click="item.upload()"
+                            ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                        <span class="fa fa-upload"></span> Enviar
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="item.cancel()"
+                            ng-disabled="!item.isUploading">
+                        <span class="fa fa-stop"></span> Cancelar Envio
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <div>
+                Progresso do envio:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <form name="frmArquivo">
+            <div class="col-md-12">
+                <label for="arq_chave">Chave do Arquivo</label>
+                <div class="input-group">
+                    <input type="text" id="arq_chave" name="arq_chave" required ng-model="arquivo.arq_chave" class="form-control">
+                </div>
+                <div ng-show="frmArquivo.arq_chave.$invalid" class="form-control-feedback text-danger">Necessário informar a chave do arquivo
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <button type="button" ng-disabled="frmArquivo.$invalid" ng-click="set_arquivo()"
+                class="btn btn-success pull-right">Descriptografar Arquivo
+        </button>
+    </div>
+</div>
