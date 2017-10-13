@@ -87,6 +87,25 @@ class Arquivos
         return $resposta;
     }
 
+    public function delete_arquivo($dados)
+    {
+        $resposta = new stdClass();
+        $resposta->status = false;
+        $resposta->mensagem = 'Erro interno';
+        $sql = "DELETE FROM arquivo WHERE arq_arquivo = :arq_arquivo and usu_codigo = :usu_codigo";
+        $stmt = $this->DB->prepare($sql);
+        $stmt->bindParam(':arq_arquivo', $dados->arq_arquivo);
+        $stmt->bindParam(':usu_codigo', $dados->usu_codigo);
+        $result = $stmt->execute();
+        if ($result) {
+            $resposta->status = true;
+            $resposta->mensagem = 'Arquivo Excluído com Sucesso';
+        } else {
+            $resposta->mensagem = json_encode($stmt->errorInfo());
+        }
+        return $resposta;
+    }
+
     private function criptografar($dados)
     {
         $crypt = new aes_encryption();
@@ -100,9 +119,9 @@ class Arquivos
     public function download($arq_arquivo)
     {
         $dados = $this->get_arquivo($arq_arquivo);
-        $path_parts = pathinfo(FILES . urldecode($dados->arq_arquivo).'.aes');
+        $path_parts = pathinfo(FILES . urldecode($dados->arq_arquivo) . '.aes');
         header('Content-Disposition: attachment; filename="' . urldecode($dados->arq_nome) . '.' . $path_parts['extension']);
-        readfile(FILES . urldecode($dados->arq_arquivo).'.aes');
+        readfile(FILES . urldecode($dados->arq_arquivo) . '.aes');
     }
 
 }

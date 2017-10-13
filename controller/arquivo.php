@@ -56,6 +56,19 @@ if (isset($_REQUEST['salva_arquivo'])) {
     echo_json($resposta);
 }
 
+if (isset($_REQUEST['delete_arquivo'])) {
+    $header = apache_request_headers();
+    $usuario = $usu->get_usuario_hash($header['Authorization']);
+    if (empty($usuario)) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    $dados = json_decode(file_get_contents("php://input"));
+    $dados->usu_codigo = $usuario->usu_codigo;
+    $resposta = $arq->delete_arquivo($dados);
+    echo_json($resposta);
+}
+
 function echo_json($resposta)
 {
     header('Content-Type: application/json; charset=utf-8');
