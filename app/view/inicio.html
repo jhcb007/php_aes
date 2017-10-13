@@ -1,0 +1,57 @@
+<div class="card mb-5">
+    <h4 class="card-header">Criptografar Arquivo</h4>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Nome do Arquivo</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descrição do Arquivo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Chave</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+        </form>
+        <input type="file" id="file" nv-file-select="" uploader="uploader" class="form-control-file">
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="50%">Nome</th>
+                <th ng-show="uploader.isHTML5">Tamanho</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in uploader.queue">
+                <td><strong>{{ item.file.name }}</strong></td>
+                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                <td nowrap>
+                    <button type="button" class="btn btn-primary" ng-click="item.upload()"
+                            ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                        <span class="fa fa-upload"></span> Enviar
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="item.cancel()"
+                            ng-disabled="!item.isUploading">
+                        <span class="fa fa-stop"></span> Cancelar Envio
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <div>
+                Progresso do envio:
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-success pull-right">Salvar Arquivo Criptografado</button>
+    </div>
+</div>
