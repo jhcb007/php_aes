@@ -101,7 +101,7 @@ function InicioController($rootScope, $scope, $location, FileUploader, Notificat
     $scope.get_nova_chave();
 }
 
-function MeusArquivosController($rootScope, $scope, ListArquivos) {
+function MeusArquivosController($rootScope, $scope, Notification, ListArquivos, DeletaArquivo) {
     $rootScope.__pagina = 'Meus Arquivos';
     $scope.arquivo_erro = false;
 
@@ -110,10 +110,34 @@ function MeusArquivosController($rootScope, $scope, ListArquivos) {
             $scope.arquivos = resul;
         });
     };
+
+    $scope.deleta_arquivo = function (arquivo) {
+        DeletaArquivo.save({}, arquivo, function (resul) {
+            if (resul.status) {
+                Notification.success({
+                    title: 'Criptografia AES',
+                    message: resul.mensagem,
+                    positionY: 'bottom',
+                    positionX: 'right',
+                    delay: 3000
+                });
+                $scope.list_arquivos();
+            } else {
+                Notification.error({
+                    title: 'Criptografia AES',
+                    message: resul.mensagem,
+                    positionY: 'bottom',
+                    positionX: 'right',
+                    delay: 5000
+                });
+            }
+        });
+    };
+
     $scope.list_arquivos();
 }
 
-function DescriptografarController($rootScope, $scope, $location, FileUploader, Notification, GerarChave, SalvarArquivo) {
+function DescriptografarController($rootScope, $scope, FileUploader, Notification, DescriptografarArquivo) {
     $rootScope.__pagina = 'Descriptografar';
     $scope.arquivo_erro = false;
     $scope.arquivo = {
@@ -121,6 +145,7 @@ function DescriptografarController($rootScope, $scope, $location, FileUploader, 
         arq_arquivo: null,
         arq_chave: null
     };
+    $scope.novo_arquivo = null;
 
     var uploader = $scope.uploader = new FileUploader({
         url: '../../controller/arquivo.php?upload'
@@ -174,26 +199,9 @@ function DescriptografarController($rootScope, $scope, $location, FileUploader, 
     };
 
 
-    $scope.set_arquivo = function () {
-        SalvarArquivo.save({}, $scope.arquivo, function (resul) {
-            if (resul.status) {
-                Notification.success({
-                    title: 'Criptografia AES',
-                    message: resul.mensagem,
-                    positionY: 'bottom',
-                    positionX: 'right',
-                    delay: 3000
-                });
-                $location.path('/meus_arquivos/');
-            } else {
-                Notification.error({
-                    title: 'Criptografia AES',
-                    message: resul.mensagem,
-                    positionY: 'bottom',
-                    positionX: 'right',
-                    delay: 5000
-                });
-            }
+    $scope.descriptografar_arquivo = function () {
+        DescriptografarArquivo.save({}, $scope.arquivo, function (resul) {
+            $scope.novo_arquivo = resul.arq_arquivo;
         });
     };
 }

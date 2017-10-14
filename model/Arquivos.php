@@ -8,7 +8,7 @@
 
 require_once '../config/geral.php';
 
-include('../lib/aes.php');
+require '../lib/class.aesCrypt.php';
 
 class Arquivos
 {
@@ -108,12 +108,23 @@ class Arquivos
 
     private function criptografar($dados)
     {
-        $crypt = new aes_encryption();
-        $crypt->key = $dados->arq_chave;
-        $crypt->iv = $crypt->rand_iv();
         $file = FILES . $dados->arq_arquivo;
-        $crypt->encrypt_file($file, $file . '.aes');
-        //$crypt->decrypt_file($file.'.enc', $file);
+        $crypt = new AESCrypt($dados->arq_chave);
+        $data = file_get_contents($file);
+        file_put_contents($file . '.aes', $crypt->encrypt($data));
+    }
+
+    public function descriptografar($dados)
+    {
+        $resposta = new stdClass();
+        $dados->arq_nome = substr($dados->arq_nome, 0, -4);
+        $resposta->arq_arquivo = $dados->arq_nome;
+        $file = FILES . $dados->arq_arquivo;
+        $file_out = FILES . 'desc/' . $dados->arq_nome;
+        $crypt = new AESCrypt($dados->arq_chave);
+        $data = file_get_contents($file);
+        file_put_contents($file_out, $crypt->decrypt($data));
+        return $resposta;
     }
 
     public function download($arq_arquivo)
@@ -122,6 +133,13 @@ class Arquivos
         $path_parts = pathinfo(FILES . urldecode($dados->arq_arquivo) . '.aes');
         header('Content-Disposition: attachment; filename="' . urldecode($dados->arq_nome) . '.' . $path_parts['extension']);
         readfile(FILES . urldecode($dados->arq_arquivo) . '.aes');
+    }
+
+    public function download_descriptografar($arq_arquivo)
+    {
+        header('Content-Disposition: attachment; filename="' . urldecode($arq_arquivo));
+        readfile(FILES . 'desc/' . $arq_arquivo);
+        //unlink(FILES . 'desc/' . $arq_arquivo);
     }
 
 }

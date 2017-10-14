@@ -37,6 +37,22 @@ if (isset($_REQUEST['download'])) {
     $arq->download($_GET['download']);
 }
 
+if (isset($_REQUEST['descri_download'])) {
+    $arq->download_descriptografar($_GET['descri_download']);
+}
+
+if (isset($_REQUEST['descriptografar'])) {
+    $header = apache_request_headers();
+    $usuario = $usu->get_usuario_hash($header['Authorization']);
+    if (empty($usuario)) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    $dados = json_decode(file_get_contents("php://input"));
+    $resposta = $arq->descriptografar($dados);
+    echo_json($resposta);
+}
+
 if (isset($_REQUEST['gerar_chave'])) {
     $header = apache_request_headers();
     $resposta = $arq->gerar_chave($header['Authorization']);

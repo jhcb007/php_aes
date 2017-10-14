@@ -31,4 +31,24 @@ angular.module('serviceGeral', ['ngResource'])
                 }
             }
         });
+    })
+    .factory('DeletaArquivo', function ($resource, config) {
+        return $resource(config.baseURL + 'controller/arquivo.php?delete_arquivo', {}, {
+            save: {
+                method: 'POST',
+                headers: {
+                    'Authorization': config.usuHash
+                }
+            }
+        });
+    })
+    .factory('DescriptografarArquivo', function ($resource, config) {
+        return $resource(config.baseURL + 'controller/arquivo.php?descriptografar', {}, {
+            save: {
+                method: 'POST',
+                headers: {
+                    'Authorization': config.usuHash
+                }
+            }
+        });
     });

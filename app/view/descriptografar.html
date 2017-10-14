@@ -44,15 +44,19 @@
             <div class="col-md-12">
                 <label for="arq_chave">Chave do Arquivo</label>
                 <div class="input-group">
-                    <input type="text" id="arq_chave" name="arq_chave" required ng-model="arquivo.arq_chave" class="form-control">
+                    <input type="text" id="arq_chave" name="arq_chave" required ng-model="arquivo.arq_chave"
+                           class="form-control">
                 </div>
-                <div ng-show="frmArquivo.arq_chave.$invalid" class="form-control-feedback text-danger">Necessário informar a chave do arquivo
+                <div ng-show="frmArquivo.arq_chave.$invalid" class="form-control-feedback text-danger">Necessário
+                    informar a chave do arquivo
                 </div>
             </div>
         </form>
     </div>
     <div class="card-footer">
-        <button type="button" ng-disabled="frmArquivo.$invalid" ng-click="set_arquivo()"
+        <a ng-if="novo_arquivo" href="../../controller/arquivo.php?descri_download={{novo_arquivo}}" target="_blank"
+           class="btn btn-info pull-left"><i class="fa fa-download" aria-hidden="true"></i> Baixar Arquivo</a>
+        <button type="button" ng-disabled="frmArquivo.$invalid" ng-click="descriptografar_arquivo()"
                 class="btn btn-success pull-right">Descriptografar Arquivo
         </button>
     </div>

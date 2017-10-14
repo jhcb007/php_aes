@@ -6,7 +6,6 @@
             <tr>
                 <th>Nome</th>
                 <th>Chave</th>
-                <th>Data</th>
                 <th>Ações</th>
             </tr>
             </thead>
@@ -14,13 +13,9 @@
             <tr ng-repeat="a in arquivos">
                 <th scope="row" ng-bind="a.arq_nome">1</th>
                 <td ng-bind="a.arq_chave"></td>
-                <td ng-bind="a.arq_data"></td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger"><i class="fa fa-trash-o"
-                                                                            aria-hidden="true"></i> Excluir
-                    </button>
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-share-alt"
-                                                                             aria-hidden="true"></i> Compartilhar
+                    <button type="button" ng-click="deleta_arquivo(a)" class="btn btn-outline-danger"><i
+                            class="fa fa-trash-o" aria-hidden="true"></i> Excluir
                     </button>
                     <a href="../../controller/arquivo.php?download={{a.arq_arquivo}}" target="_blank"
                        class="btn btn-outline-info"><i class="fa fa-download" aria-hidden="true"></i> Baixar</a>
