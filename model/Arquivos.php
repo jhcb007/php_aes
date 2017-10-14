@@ -8,7 +8,7 @@
 
 require_once '../config/geral.php';
 
-require '../lib/class.aesCrypt.php';
+include '../lib/security.php';
 
 class Arquivos
 {
@@ -109,9 +109,8 @@ class Arquivos
     private function criptografar($dados)
     {
         $file = FILES . $dados->arq_arquivo;
-        $crypt = new AESCrypt($dados->arq_chave);
         $data = file_get_contents($file);
-        file_put_contents($file . '.aes', $crypt->encrypt($data));
+        file_put_contents($file . '.aes', Security::encrypt($data, $dados->arq_chave));
     }
 
     public function descriptografar($dados)
@@ -121,9 +120,8 @@ class Arquivos
         $resposta->arq_arquivo = $dados->arq_nome;
         $file = FILES . $dados->arq_arquivo;
         $file_out = FILES . 'desc/' . $dados->arq_nome;
-        $crypt = new AESCrypt($dados->arq_chave);
         $data = file_get_contents($file);
-        file_put_contents($file_out, $crypt->decrypt($data));
+        file_put_contents($file_out, Security::decrypt($data, $dados->arq_chave));
         return $resposta;
     }
 
