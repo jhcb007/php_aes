@@ -10,4 +10,4 @@ Download das dependências:
 
     yarn
     
-**Exemplo:** (http://35.185.110.128/)
+**Exemplo:** (https://henriquebrandao.000webhostapp.com/)
