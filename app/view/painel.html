@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
-    <title>Criptografia AES</title>
+    <title>Criptografia AES E MD5</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../node_modules/angular-ui-notification/dist/angular-ui-notification.min.css">
@@ -12,7 +12,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="#">Criptografia AES</a>
+    <a class="navbar-brand" href="#">Criptografia AES E MD5</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,21 +20,26 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" ng-class="__pagina === 'Criptografar' ? 'active' : ''">
-                <a class="nav-link" href="#!/inicio">Criptografar</a>
+                <a class="nav-link" href="#!/inicio">Criptografar AES</a>
+            </li>
+            <li class="nav-item" ng-class="__pagina === 'Criptografar' ? 'active' : ''">
+                <a class="nav-link" href="#!/inicio">Criptografar MD5</a>
             </li>
             <li class="nav-item" ng-class="__pagina === 'Meus Arquivos' ? 'active' : ''">
                 <a class="nav-link" href="#!/meus_arquivos">Meus Arquivos</a>
             </li>
             <li class="nav-item" ng-class="__pagina === 'Descriptografar' ? 'active' : ''">
-                <a class="nav-link" href="#!/descriptografar">Descriptografar</a>
+                <a class="nav-link" href="#!/descriptografar">Descriptografar AES</a>
+            </li>
+            <li class="nav-item" ng-class="__pagina === 'Descriptografar' ? 'active' : ''">
+                <a class="nav-link" href="#!/descriptografar">Verificar Arquivo MD5</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <div class="col-12" ng-view>
-    </div>
+    <div class="col-12" ng-view></div>
 </div>
 </body>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
